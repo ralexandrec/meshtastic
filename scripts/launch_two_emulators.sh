@@ -162,6 +162,9 @@ install_and_launch() {
     "$ADB" -s "$serial" install -r "$APK_PATH"
     "$ADB" -s "$serial" install -r "$PROJECT_ROOT/sayboard.apk" 2>/dev/null || true
     
+    log "Configuring TCP network port forwarding (adb reverse tcp:4403) on $label..."
+    "$ADB" -s "$serial" reverse tcp:4403 tcp:4403 2>/dev/null || true
+
     log "Applying locale $LOCALE_TAG on $label (app + keyboard)..."
     configure_emulator_locale "$ADB" "$serial" "$LOCALE_TAG"
 
