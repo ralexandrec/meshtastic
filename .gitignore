@@ -1,0 +1,27 @@
+# Log files
+*.log
+.ci-setup/logs/
+
+# Screen prints / screenshots
+*.png
+wear_screenshot.png
+
+# Layout dumps
+window_dump_*.xml
+
+# Python Virtual Environments & Caches
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+
+# Android / Gradle Build and IDE files
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+captures/

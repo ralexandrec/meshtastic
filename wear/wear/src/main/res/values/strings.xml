@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meshtastic Wear PTT</string>
+    <string name="radio_mesh_brasil">RADIO MESH</string>
+    <string name="waiting_for_traffic">Waiting for traffic...</string>
+    <string name="ptt_talk">TALK</string>
+    <string name="ptt_button">PTT</string>
+    <string name="txt_button">TXT</string>
+    <string name="sayboard_missing_title">Sayboard Missing</string>
+    <string name="sayboard_missing_message">Sayboard is required for local and offline voice transcription.</string>
+    <string name="ok">OK</string>
+    <string name="configure_connection">Configure Connection</string>
+    <string name="back">Back</string>
+    <string name="status_label">Status: %s</string>
+    <string name="connect_tcp">Connect TCP (Simulated)</string>
+    <string name="connect_ble">Pair BLE (Bluetooth)</string>
+    <string name="show_battery">Show Battery</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_connected_ble">Connected (BLE)</string>
+    <string name="status_connecting">Connecting...</string>
+    <string name="status_ble_scanning">BLE GATT: Scanning...</string>
+    <string name="status_ble_not_found">BLE GATT: Dongle not found (Stub)</string>
+    <string name="status_error">Error: %s</string>
+    <string name="speech_prompt">Speak now...</string>
+    <string name="no_speech_engine">No speech engine installed.</string>
+    <string name="listening">🎙️ Listening...</string>
+    <string name="speech_error">Speech recognition error.</string>
+    <string name="you_voice_format">You (Voice): %s</string>
+    <string name="you_format">You: %s</string>
+    <string name="gps_sent_format">GPS sent: %1$s, %2$s</string>
+    <string name="battery_sent_format">Battery sent: %d%%</string>
+    <string name="sender_you">You</string>
+    <string name="sender_you_voice">You (Voice)</string>
+</resources>

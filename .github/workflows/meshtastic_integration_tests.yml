@@ -1,0 +1,89 @@
+name: Meshtastic Wear OS Integration Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  integration-tests:
+    name: Run Wear OS & Mock Integration Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable KVM group permission
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm-rules.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm || true
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies for Mock Server
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .ci-setup/requirements.txt
+
+      - name: Set up Java JDK 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Create logs directory
+        run: mkdir -p .ci-setup/logs
+
+      - name: Start Meshtastic Mock Server in Background
+        run: |
+          python -u .ci-setup/mock_server.py --no-ble --port 4403 > .ci-setup/logs/mock_server.log 2>&1 &
+          echo $! > .ci-setup/logs/mock_server.pid
+
+      - name: Wait for Mock Server TCP Port 4403 (Healthcheck)
+        run: |
+          python3 -c '
+          import socket, time
+          for i in range(30):
+              try:
+                  with socket.create_connection(("127.0.0.1", 4403), timeout=1):
+                      print("Mock Server TCP 4403 is active and listening!")
+                      break
+              except Exception:
+                  time.sleep(1)
+          else:
+              raise SystemExit("Mock Server TCP 4403 failed to start within timeout.")
+          '
+
+      - name: Run Wear OS BDD Tests on Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: android-wear
+          arch: x86_64
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -no-audio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: |
+            cd wear
+            ./gradlew clean installDebug connectedDebugAndroidTest
+
+      - name: Upload Logs & Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-reports
+          path: |
+            .ci-setup/logs/
+            wear/wear/build/reports/androidTests/connected/
+            wear/wear/build/outputs/androidTest-results/connected/
+          if-no-files-found: ignore

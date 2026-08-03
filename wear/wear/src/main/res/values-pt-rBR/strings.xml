@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meshtastic Wear PTT</string>
+    <string name="radio_mesh_brasil">RADIO MESH BRASIL</string>
+    <string name="waiting_for_traffic">Aguardando tráfego...</string>
+    <string name="ptt_talk">FALE</string>
+    <string name="ptt_button">PTT</string>
+    <string name="txt_button">TXT</string>
+    <string name="sayboard_missing_title">Sayboard Ausente</string>
+    <string name="sayboard_missing_message">O Sayboard é necessário para transcrição local e offline de voz em texto.</string>
+    <string name="ok">OK</string>
+    <string name="configure_connection">Configurar Conexão</string>
+    <string name="back">Voltar</string>
+    <string name="status_label">Status: %s</string>
+    <string name="connect_tcp">Conectar TCP (Simulado)</string>
+    <string name="connect_ble">Parear BLE (Bluetooth)</string>
+    <string name="show_battery">Exibir Bateria</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="status_disconnected">Desconectado</string>
+    <string name="status_connected">Conectado</string>
+    <string name="status_connected_ble">Conectado (BLE)</string>
+    <string name="status_connecting">Conectando...</string>
+    <string name="status_ble_scanning">BLE GATT: Escaneando...</string>
+    <string name="status_ble_not_found">BLE GATT: Dongle não encontrado (Stub)</string>
+    <string name="status_error">Erro: %s</string>
+    <string name="speech_prompt">Fale agora...</string>
+    <string name="no_speech_engine">Nenhum motor de voz instalado.</string>
+    <string name="listening">🎙️ Escutando...</string>
+    <string name="speech_error">Erro no reconhecimento de voz.</string>
+    <string name="you_voice_format">Você (Voz): %s</string>
+    <string name="you_format">Você: %s</string>
+    <string name="gps_sent_format">GPS enviado: %1$s, %2$s</string>
+    <string name="battery_sent_format">Bateria enviada: %d%%</string>
+    <string name="sender_you">Você</string>
+    <string name="sender_you_voice">Você (Voz)</string>
+</resources>
