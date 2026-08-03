@@ -107,6 +107,7 @@ class MainActivity : ComponentActivity() {
 
     private fun triggerSpeechInput() {
         val targetLocaleTag = resources.configuration.locales[0]?.toLanguageTag() ?: "pt-BR"
+        android.util.Log.d("MeshtasticSTT", "Triggering Speech Input with locale tag: '$targetLocaleTag', default: '${java.util.Locale.getDefault()}'")
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_LANGUAGE, targetLocaleTag)
