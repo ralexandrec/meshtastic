@@ -12,10 +12,10 @@ packaging==26.2
 parse==1.22.1
 parse_type==0.6.6
 protobuf==7.35.1
-pyobjc-core==12.2.1
-pyobjc-framework-Cocoa==12.2.1
-pyobjc-framework-CoreBluetooth==12.2.1
-pyobjc-framework-libdispatch==12.2.1
+pyobjc-core==12.2.1; sys_platform == 'darwin'
+pyobjc-framework-Cocoa==12.2.1; sys_platform == 'darwin'
+pyobjc-framework-CoreBluetooth==12.2.1; sys_platform == 'darwin'
+pyobjc-framework-libdispatch==12.2.1; sys_platform == 'darwin'
 Pypubsub==4.0.7
 pyserial==3.5
 PyYAML==6.0.3
