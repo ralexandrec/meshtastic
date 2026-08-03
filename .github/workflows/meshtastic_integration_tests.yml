@@ -12,6 +12,9 @@ jobs:
   integration-tests:
     name: Run Wear OS & Mock Integration Tests
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_RUNNER_FORCE_ACTIONS_NODE24: 'true'
+      ACTIONS_SUPPRESS_NODE20_WARNINGS: 'true'
 
     steps:
       - name: Checkout repository
@@ -39,7 +42,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           cache-disabled: true
 
