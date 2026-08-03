@@ -24,13 +24,27 @@ class TcpMeshClient(private val ip: String, private val port: Int) : MeshConnect
         
         thread(start = true, name = "TCPMeshReadThread") {
             onStatusChg?.invoke("Connecting...")
-            try {
-                socket = Socket(ip, port)
-                outputStream = socket?.getOutputStream()
-                inputStream = socket?.getInputStream()
-                onStatusChg?.invoke("Connected")
-                
-                val stream = inputStream ?: return@thread
+            var connected = false
+            for (attempt in 1..10) {
+                if (!isRunning) break
+                try {
+                    socket = Socket(ip, port)
+                    outputStream = socket?.getOutputStream()
+                    inputStream = socket?.getInputStream()
+                    connected = true
+                    break
+                } catch (e: Exception) {
+                    try { Thread.sleep(1000) } catch (ex: Exception) {}
+                }
+            }
+
+            if (!connected) {
+                onStatusChg?.invoke("Disconnected")
+                return@thread
+            }
+            
+            onStatusChg?.invoke("Connected")
+            val stream = inputStream ?: return@thread
                 val headerBuffer = ByteArray(4)
                 
                 while (isRunning) {
