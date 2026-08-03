@@ -125,6 +125,7 @@ class StepDefinitions {
     @Então("a mensagem {string} deve ser enviada ao simulador")
     fun a_mensagem_deve_ser_enviada_ao_simulador(mensagem: String) {
         assertNotNull(app.meshConnection)
+        assertTrue("Message to be sent should not be empty", mensagem.isNotEmpty())
         Thread.sleep(200) // Delay for visual monitoring
     }
 

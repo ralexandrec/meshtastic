@@ -261,7 +261,7 @@ object MiniProto {
                     }
                 }
                 if (decodedBytes != null) {
-                    parseData(decodedBytes!!)
+                    parseData(decodedBytes)
                 }
             } catch (e: Exception) {}
         }
@@ -286,7 +286,7 @@ object MiniProto {
                     }
                 }
                 if (portnum == 1L && payloadBytes != null) { // TEXT_MESSAGE_APP
-                    packetText = String(payloadBytes!!, Charsets.UTF_8)
+                    packetText = String(payloadBytes, Charsets.UTF_8)
                     hasPacket = true
                 } else if (portnum == 3L && payloadBytes != null) { // POSITION_APP
                     var latVal = 0L
