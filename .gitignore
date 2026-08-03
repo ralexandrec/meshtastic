@@ -4,6 +4,7 @@
 
 # Screen prints / screenshots
 *.png
+!docs/images/*.png
 wear_screenshot.png
 
 # Layout dumps

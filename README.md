@@ -1,5 +1,9 @@
 # Meshtastic Wear OS Client
 
+<p align="center">
+  <img src="docs/images/wear_os_ptt_preview.png" alt="Meshtastic Wear OS Client Preview" width="280">
+</p>
+
 An offline-first, walkie-talkie-style communication client for Wear OS smartwatches that operates entirely without internet connectivity by interfacing with the Meshtastic LoRa mesh network.
 
 ---
