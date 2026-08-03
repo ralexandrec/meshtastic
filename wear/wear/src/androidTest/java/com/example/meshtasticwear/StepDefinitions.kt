@@ -74,13 +74,13 @@ class StepDefinitions {
             }
         }
         assertTrue("The simulator mesh_mock must be running on port 4403", socketConnected)
-        Thread.sleep(2500) // Delay for visual monitoring
+        Thread.sleep(200) // Delay for visual monitoring
     }
 
     @Dado("o aplicativo Wear OS iniciou no Modo Voz com o Mock de TTS injetado")
     fun o_aplicativo_wear_os_iniciou_no_modo_voz_com_o_mock_de_tts_injetado() {
         activityScenario = ActivityScenario.launch(MainActivity::class.java)
-        Thread.sleep(2500) // Delay for visual monitoring
+        Thread.sleep(200) // Delay for visual monitoring
     }
 
     @Dado("o aplicativo Wear OS está ativo com o Mock de TTS injetado")
@@ -96,7 +96,7 @@ class StepDefinitions {
                 KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_STEM_1)
             )
         }
-        Thread.sleep(2500) // Delay for visual monitoring
+        Thread.sleep(200) // Delay for visual monitoring
     }
 
     @Quando("a transcrição da voz simulada resulta em {string}")
@@ -108,7 +108,7 @@ class StepDefinitions {
         val result = Instrumentation.ActivityResult(Activity.RESULT_OK, resultData)
         Intents.intending(hasAction(RecognizerIntent.EXTRA_RESULTS)).respondWith(result) // Fallback standard match
         Intents.intending(hasAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)).respondWith(result)
-        Thread.sleep(2500) // Delay for visual monitoring
+        Thread.sleep(200) // Delay for visual monitoring
     }
 
     @Quando("o usuário solta o botão físico")
@@ -119,13 +119,13 @@ class StepDefinitions {
                 KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_STEM_1)
             )
         }
-        Thread.sleep(2500) // Waits for packet sending
+        Thread.sleep(200) // Waits for packet sending
     }
 
     @Então("a mensagem {string} deve ser enviada ao simulador")
     fun a_mensagem_deve_ser_enviada_ao_simulador(mensagem: String) {
         assertNotNull(app.meshConnection)
-        Thread.sleep(2500) // Delay for visual monitoring
+        Thread.sleep(200) // Delay for visual monitoring
     }
 
     @Então("quando o simulador envia a resposta de confirmação de texto {string}")
@@ -138,7 +138,7 @@ class StepDefinitions {
             )
             activity.viewModel.simulateMessageReceived(bytes)
         }
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Então("o relógio deve receber o texto e falar automaticamente {string} via TTS")
@@ -164,7 +164,7 @@ class StepDefinitions {
                 activity.viewModel.toggleMode()
             }
         }
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Quando("o usuário envia o texto {string} para a malha")
@@ -172,7 +172,7 @@ class StepDefinitions {
         activityScenario?.onActivity { activity ->
             activity.viewModel.sendTextMessage(mensagem)
         }
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Então("a mensagem {string} deve ser transmitida")
@@ -196,19 +196,19 @@ class StepDefinitions {
     @Então("o motor de voz TTS não deve falar nenhuma mensagem")
     fun o_motor_de_voz_tts_nao_deve_falar_nenhuma_mensagem() {
         assertNull("The TTS should remain silent in text mode", mockTts.lastSpokenText)
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Dado("que o teclado Sayboard está registrado como instalado")
     fun que_o_teclado_sayboard_esta_registrado_como_instalado() {
         app.mockSayboardInstalled = true
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Dado("que o teclado Sayboard está registrado como não instalado")
     fun que_o_teclado_sayboard_esta_registrado_como_nao_instalado() {
         app.mockSayboardInstalled = false
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Quando("o aplicativo Wear OS inicia")
@@ -224,7 +224,7 @@ class StepDefinitions {
             isShowing = activity.viewModel.showSayboardWarning.value
         }
         assertFalse("Should not show '$alerta' alert when the keyboard is installed", isShowing)
-        Thread.sleep(2000)
+        Thread.sleep(100)
     }
 
     @Então("o alerta de {string} deve ser exibido na tela")
@@ -234,7 +234,7 @@ class StepDefinitions {
             isShowing = activity.viewModel.showSayboardWarning.value
         }
         assertTrue("Should show '$alerta' alert when the keyboard is not installed", isShowing)
-        Thread.sleep(2000)
+        Thread.sleep(100)
     }
 
     @Quando("o usuário abre as configurações de conexão")
@@ -242,7 +242,7 @@ class StepDefinitions {
         activityScenario?.onActivity { activity ->
             activity.viewModel.showSettingsDialog.value = true
         }
-        Thread.sleep(2000)
+        Thread.sleep(100)
     }
 
     @Quando("seleciona pareamento Bluetooth BLE com sucesso")
@@ -283,7 +283,7 @@ class StepDefinitions {
         } else {
             assertEquals(statusEsperado.uppercase(), statusAtual.uppercase())
         }
-        Thread.sleep(2000)
+        Thread.sleep(100)
     }
 
     @Quando("o simulador envia um pacote de coordenadas com latitude {string} e longitude {string}")
@@ -299,7 +299,7 @@ class StepDefinitions {
             )
             activity.viewModel.simulateMessageReceived(bytes)
         }
-        Thread.sleep(2000)
+        Thread.sleep(100)
     }
 
     @Então("a mensagem contendo {string} deve ser exibida na tela do relógio")
@@ -318,7 +318,7 @@ class StepDefinitions {
             hasGps = activity.viewModel.messages.any { it.fullDisplay.contains("GPS: Lat") }
         }
         assertTrue("The message list should contain GPS coordinates", hasGps)
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Quando("o usuário clica no ícone de mapa da mensagem")
@@ -327,7 +327,7 @@ class StepDefinitions {
             // Simulates maps opening
             activity.viewModel.openMap("-23.5615", "-46.656", activity)
         }
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 
     @Então("uma Intent de geolocalização com URI {string} deve ser disparada")
@@ -347,6 +347,6 @@ class StepDefinitions {
             }
             throw e
         }
-        Thread.sleep(1000)
+        Thread.sleep(100)
     }
 }

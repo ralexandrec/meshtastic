@@ -73,9 +73,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -no-audio -no-boot-anim -camera-back none
           disable-animations: true
-          script: |
-            cd wear
-            ./gradlew clean installDebug connectedDebugAndroidTest
+          script: cd wear && ./gradlew clean installDebug connectedDebugAndroidTest
 
       - name: Upload Logs & Test Reports
         if: always()
