@@ -64,8 +64,10 @@ class PttViewModel(
                     }
                     else -> status
                 }
-                connectionStatus.value = localizedStatus
-                isConnected.value = (status == "Connected" || status == "Connected (BLE)" || status.startsWith("Connected", ignoreCase = true))
+                android.os.Handler(android.os.Looper.getMainLooper()).post {
+                    connectionStatus.value = localizedStatus
+                    isConnected.value = (status == "Connected" || status == "Connected (BLE)" || status.startsWith("Connected", ignoreCase = true))
+                }
             }
         )
     }
@@ -111,11 +113,13 @@ class PttViewModel(
                     fullDisplay = fullDisplay
                 )
             }
-            messages.add(uiMsg)
-            
-            // If in Voice Mode, synthesizes offline aloud (except if it is GPS)
-            if (isVoiceMode.value && !text.contains("GPS:")) {
-                ttsManager.speak(text)
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                messages.add(uiMsg)
+                
+                // If in Voice Mode, synthesizes offline aloud (except if it is GPS)
+                if (isVoiceMode.value && !text.contains("GPS:")) {
+                    ttsManager.speak(text)
+                }
             }
         }
     }
