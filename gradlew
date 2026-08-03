@@ -124,7 +124,7 @@ if [ -n "$JAVA_HOME" ] ; then
     fi
     if [ ! -x "$JAVACMD" ] ; then
         if [ -x "/usr/libexec/java_home" ]; then
-            JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
+            JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null || /usr/libexec/java_home 2>/dev/null)
             JAVACMD="$JAVA_HOME/bin/java"
         elif [ -d "$HOME/Library/Java/JavaVirtualMachines/azul-17.0.9/Contents/Home" ]; then
             JAVA_HOME="$HOME/Library/Java/JavaVirtualMachines/azul-17.0.9/Contents/Home"
