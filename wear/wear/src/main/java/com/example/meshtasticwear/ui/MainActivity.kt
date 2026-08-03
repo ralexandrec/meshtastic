@@ -106,9 +106,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun triggerSpeechInput() {
+        val targetLocaleTag = resources.configuration.locales[0]?.toLanguageTag() ?: "pt-BR"
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, targetLocaleTag)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, targetLocaleTag)
+            putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, targetLocaleTag)
             putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt))
             setPackage("com.elishaazaria.sayboard")
         }
