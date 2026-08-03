@@ -61,4 +61,13 @@ Quando uma coordenada de GPS é transmitida na rede e chega ao outro relógio:
 1. **Exibição do Texto:** A mensagem é formatada e exibida como `"GPS: Lat [lat], Lon [lon], Alt [alt]m"`.
 2. **Silenciamento de TTS:** O motor de voz inteligente detecta o padrão `"GPS:"` e permanece em silêncio (não lê as coordenadas geografias em voz alta).
 3. **Botão de Mapa Integrado:** Um ícone de mapa (🗺️) é renderizado no lado direito do balão de mensagem no histórico.
-4. **Abrir no Google Maps/Waze:** Ao tocar no ícone do mapa (🗺️), o aplicativo dispara um seletor nativo do sistema operacional. O usuário pode escolher abrir o ponto geográfico diretamente no **Google Maps**, **Waze** ou qualquer outro app de mapas instalado no relógio, permitindo traçar rotas e ver a posição em tempo real.
+4. Open in Google Maps/Waze: Ao tocar no ícone do mapa (🗺️), o aplicativo dispara um seletor nativo do sistema operacional. O usuário pode escolher abrir o ponto geográfico diretamente no **Google Maps**, **Waze** ou qualquer outro app de mapas instalado no relógio, permitindo traçar rotas e ver a posição em tempo real.
+
+---
+
+## 5. Teste Automatizado de Reconhecimento de Voz (STT) e Injeção de Áudio
+
+### 5.1 Teste de Injeção de Áudio e Validação de Idioma
+* O sistema possui suporte a testes de integração BDD automatizados (Cucumber/Espresso) com simulação e injeção de áudio.
+* **Configuração de Idioma BCP-47:** A intent `ACTION_RECOGNIZE_SPEECH` configura os extras `EXTRA_LANGUAGE`, `EXTRA_LANGUAGE_PREFERENCE` e `EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE` como `"pt-BR"`.
+* **Injeção de Áudio Sintetizado:** Durante o teste de integração, áudios sintetizados em Português-Brasil (ex: *"olá testando o chat em português"*) são injetados na esteira de teste para validar que o reconhecedor de voz transcreve o texto em português e envia o pacote via malha Mesh.

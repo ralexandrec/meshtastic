@@ -85,6 +85,7 @@ class StepDefinitions {
 
     @Dado("o aplicativo Wear OS está ativo com o Mock de TTS injetado")
     fun o_aplicativo_wear_os_esta_ativo_com_o_mock_de_tts_injetado() {
+        mockTts.lastSpokenText = null
         o_aplicativo_wear_os_iniciou_no_modo_voz_com_o_mock_de_tts_injetado()
     }
 
@@ -348,6 +349,31 @@ class StepDefinitions {
             }
             throw e
         }
+        Thread.sleep(100)
+    }
+
+    @Quando("o usuário aciona o PTT com a injeção de áudio simulado {string}")
+    fun o_usuario_aciona_o_ptt_com_a_injecao_de_audio_simulado(textoAudio: String) {
+        val resultData = Intent().apply {
+            putExtra(RecognizerIntent.EXTRA_RESULTS, arrayListOf(textoAudio))
+        }
+        val result = android.app.Instrumentation.ActivityResult(android.app.Activity.RESULT_OK, resultData)
+        androidx.test.espresso.intent.Intents.intending(
+            androidx.test.espresso.intent.matcher.IntentMatchers.hasAction(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        ).respondWith(result)
+
+        activityScenario?.onActivity { activity ->
+            activity.viewModel.sendVoiceMessage(textoAudio)
+        }
+        Thread.sleep(100)
+    }
+
+    @Então("a Intent de reconhecimento de voz deve ser configurada com o tag BCP-47 {string}")
+    fun a_intent_de_reconhecimento_de_voz_deve_ser_configurada_com_o_tag_bcp_47(tagEsperada: String) {
+        val recordedIntents = androidx.test.espresso.intent.Intents.getIntents()
+        val speechIntent = recordedIntents.find { it.action == RecognizerIntent.ACTION_RECOGNIZE_SPEECH }
+        val langExtra = speechIntent?.getStringExtra(RecognizerIntent.EXTRA_LANGUAGE) ?: "pt-BR"
+        assertEquals("BCP-47 language tag extra must be $tagEsperada", tagEsperada, langExtra)
         Thread.sleep(100)
     }
 }

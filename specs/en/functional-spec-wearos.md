@@ -62,3 +62,12 @@ When a GPS coordinate is transmitted on the network and reaches the other watch:
 2. **TTS Silencing:** The smart voice engine detects the `"GPS:"` pattern and remains silent (does not read the geographic coordinates aloud).
 3. **Integrated Map Button:** A map icon (🗺️) is rendered on the right side of the message bubble in the history.
 4. **Open in Google Maps/Waze:** Upon tapping the map icon (🗺️), the application fires a native system Intent chooser. The user can choose to open the geographical point directly in **Google Maps**, **Waze**, or any other map application installed on the watch, allowing them to route and see the position in real time.
+
+---
+
+## 5. Automated Speech Recognition (STT) Test and Audio Injection
+
+### 5.1 Audio Injection Test and Locale Validation
+* The system supports automated BDD integration tests (Cucumber/Espresso) with audio simulation and injection.
+* **BCP-47 Language Configuration:** The `ACTION_RECOGNIZE_SPEECH` intent configures `EXTRA_LANGUAGE`, `EXTRA_LANGUAGE_PREFERENCE`, and `EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE` extras to `"pt-BR"`.
+* **Synthesized Audio Injection:** During the integration test, synthesized Portuguese-Brazil audio files (e.g., *"olá testando o chat em português"*) are injected into the test pipeline to validate that the speech recognizer transcribes the text in Portuguese and transmits the packet over the Mesh network.

@@ -58,3 +58,9 @@ Funcionalidade: Comunicação por Voz e Texto com Mock Meshtastic
     E o ícone de mapa deve estar visível ao lado da mensagem
     Quando o usuário clica no ícone de mapa da mensagem
     Então uma Intent de geolocalização com URI "geo:-23.5615,-46.656?q=-23.5615,-46.656" deve ser disparada
+
+  Cenário: Validar que a Intent de reconhecimento de voz configura o idioma Português-Brasil (pt-BR)
+    Dado o aplicativo Wear OS está ativo com o Mock de TTS injetado
+    Quando o usuário aciona o PTT com a injeção de áudio simulado "olá testando o chat em português"
+    Então a Intent de reconhecimento de voz deve ser configurada com o tag BCP-47 "pt-BR"
+    E a mensagem "olá testando o chat em português" deve ser transmitida
