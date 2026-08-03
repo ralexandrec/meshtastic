@@ -41,8 +41,5 @@ configure_emulator_locale() {
 # emulator_locale_prop <locale_tag>
 # Returns the -prop argument for the emulator command line.
 emulator_locale_prop() {
-    local locale_tag="$1"
-    local lang="${locale_tag%-*}"
-    local country="${locale_tag#*-}"
-    echo "-prop persist.sys.locale=$locale_tag -prop persist.sys.language=$lang -prop persist.sys.country=$country"
+    echo "-prop persist.sys.locale=$1"
 }
