@@ -13,11 +13,12 @@ class NativeTtsManager(context: Context) : TtsManager {
         // Initializes the Android native text-to-speech engine
         tts = TextToSpeech(context) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                val locale = Locale.getDefault()
-                val result = tts?.setLanguage(locale)
-                if (result != TextToSpeech.LANG_MISSING_DATA && result != TextToSpeech.LANG_NOT_SUPPORTED) {
-                    isInitialized = true
+                val appLocale = context.resources.configuration.locales[0] ?: Locale.getDefault()
+                var result = tts?.setLanguage(appLocale)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    result = tts?.setLanguage(Locale("pt", "BR"))
                 }
+                isInitialized = (result != TextToSpeech.LANG_MISSING_DATA && result != TextToSpeech.LANG_NOT_SUPPORTED)
             }
         }
     }

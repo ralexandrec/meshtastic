@@ -30,6 +30,7 @@ configure_emulator_locale() {
     local country="${locale_tag#*-}"
 
     "$adb_path" -s "$device_serial" shell "cmd locale set-app-locales com.example.meshtasticwear --locales $locale_tag" 2>/dev/null || true
+    "$adb_path" -s "$device_serial" shell "cmd locale set-app-locales com.elishaazaria.sayboard --locales $locale_tag" 2>/dev/null || true
     "$adb_path" -s "$device_serial" shell "settings put system system_locales $locale_tag" 2>/dev/null || true
     "$adb_path" -s "$device_serial" shell "setprop persist.sys.language $lang" 2>/dev/null || true
     "$adb_path" -s "$device_serial" shell "setprop persist.sys.country $country" 2>/dev/null || true

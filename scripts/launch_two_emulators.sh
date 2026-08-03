@@ -163,6 +163,10 @@ install_and_launch() {
     log "Installing application on $label..."
     "$ADB" -s "$serial" install -r "$APK_PATH"
     "$ADB" -s "$serial" install -r "$PROJECT_ROOT/sayboard.apk" 2>/dev/null || true
+    
+    log "Applying locale $LOCALE_TAG on $label (app + keyboard)..."
+    configure_emulator_locale "$ADB" "$serial" "$LOCALE_TAG"
+
     "$ADB" -s "$serial" shell input keyevent KEYCODE_WAKEUP
     "$ADB" -s "$serial" shell wm dismiss-keyguard
     "$ADB" -s "$serial" shell am start -n com.example.meshtasticwear/.ui.MainActivity
