@@ -119,6 +119,17 @@ This project adheres to strict clean architecture principles:
 
 ---
 
+## 🛠️ TODO & Roadmap
+
+For a detailed list of pending tasks, field test plans, and upcoming features, see [TODO.md](TODO.md):
+
+- [ ] **Real Hardware Integration & Field Tests:** Connect and validate Bluetooth LE/TCP communication with physical Meshtastic radio nodes (Heltec V3, LilyGO T-Beam, RAK Wireless).
+- [ ] **Native Portuguese Offline STT Model:** Bundle `vosk-model-small-pt-0.3` into the Sayboard APK for 100% offline Portuguese voice transcription.
+- [ ] **Channel Management & AES-256 Encryption:** Channel switching interface and PSK key management.
+- [ ] **Wear OS Ambient Mode & Battery Optimization:** Always-on Display support for extended battery life during active PTT sessions.
+
+---
+
 ## Credits & Acknowledgements
 
 Special thanks to the open-source projects that make offline communication and speech recognition possible:
