@@ -152,9 +152,7 @@ wait_for_watch_boot() {
         sleep 2
     done
     "$ADB" -s "$serial" shell setprop debug.hwui.renderer opengl
-    log "Applying locale $LOCALE_TAG on $label..."
-    configure_emulator_locale "$ADB" "$serial" "$LOCALE_TAG"
-    log "${GREEN}$label is online (locale: $LOCALE_TAG)!${CLEAR}"
+    log "${GREEN}$label is online!${CLEAR}"
 }
 
 install_and_launch() {
