@@ -113,7 +113,6 @@ class MainActivity : ComponentActivity() {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, targetLocaleTag)
             putExtra(RecognizerIntent.EXTRA_ONLY_RETURN_LANGUAGE_PREFERENCE, targetLocaleTag)
             putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.speech_prompt))
-            setPackage("com.elishaazaria.sayboard")
         }
 
         val app = application as MeshtasticApp
