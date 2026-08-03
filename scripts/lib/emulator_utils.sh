@@ -7,7 +7,9 @@
 #   pt -> pt-BR (default for Brazilian developers)
 #   en -> en-US
 resolve_locale_tag() {
-    case "${1,,}" in
+    local lower_code
+    lower_code=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+    case "$lower_code" in
         pt|pt-br) echo "pt-BR" ;;
         en|en-us) echo "en-US" ;;
         *)
