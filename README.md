@@ -112,3 +112,20 @@ This project adheres to strict clean architecture principles:
 - **Single Responsibility Principle (SRP):** UI layout is completely separated from networking and parsing logic. `PttScreen` handles view rendering only, while `PttViewModel` controls state and coordinates parsing.
 - **Dependency Inversion Principle (DIP):** The ViewModel operates on the `MeshConnection` and `TtsManager` interfaces, allowing clean dependency injection of standard production implementations (`TcpMeshClient`, `NativeTtsManager`) or mock replacements during BDD runs.
 - **Internationalization (i18n):** All user-facing strings are migrated to Android resource dictionaries, providing seamless default English and localized Portuguese-Brazil support.
+
+---
+
+## Credits & Acknowledgements
+
+Special thanks to the open-source projects that make offline communication and speech recognition possible:
+
+- **[Sayboard](https://github.com/elishaazaria/sayboard):** An exceptional open-source offline Wear OS keyboard and speech recognition service created by **Elisha Azaria**. Sayboard embeds the Vosk speech recognition engine, enabling 100% offline speech-to-text functionality directly on smartwatches without internet connectivity.
+- **[Meshtastic](https://meshtastic.org/):** An open-source, off-grid, decentralized mesh communication system designed to operate on low-power LoRa radios.
+- **[Vosk Speech Recognition](https://alphacephei.com/vosk/):** An offline speech recognition toolkit providing acoustic speech models for mobile and embedded devices.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
