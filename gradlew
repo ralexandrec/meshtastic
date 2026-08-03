@@ -123,6 +123,15 @@ if [ -n "$JAVA_HOME" ] ; then
         JAVACMD=$JAVA_HOME/bin/java
     fi
     if [ ! -x "$JAVACMD" ] ; then
+        if [ -x "/usr/libexec/java_home" ]; then
+            JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
+            JAVACMD="$JAVA_HOME/bin/java"
+        elif [ -d "$HOME/Library/Java/JavaVirtualMachines/azul-17.0.9/Contents/Home" ]; then
+            JAVA_HOME="$HOME/Library/Java/JavaVirtualMachines/azul-17.0.9/Contents/Home"
+            JAVACMD="$JAVA_HOME/bin/java"
+        fi
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
         die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
 
 Please set the JAVA_HOME variable in your environment to match the
