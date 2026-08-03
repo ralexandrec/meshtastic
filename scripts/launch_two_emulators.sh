@@ -167,6 +167,7 @@ install_and_launch() {
 
     log "Applying locale $LOCALE_TAG on $label (app + keyboard)..."
     configure_emulator_locale "$ADB" "$serial" "$LOCALE_TAG"
+    "$ADB" -s "$serial" shell am force-stop com.elishaazaria.sayboard 2>/dev/null || true
 
     "$ADB" -s "$serial" shell input keyevent KEYCODE_WAKEUP
     "$ADB" -s "$serial" shell wm dismiss-keyguard
