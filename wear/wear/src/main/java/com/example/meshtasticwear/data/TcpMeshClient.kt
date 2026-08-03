@@ -24,29 +24,30 @@ class TcpMeshClient(private val ip: String, private val port: Int) : MeshConnect
         
         thread(start = true, name = "TCPMeshReadThread") {
             onStatusChg?.invoke("Connecting...")
-            var connected = false
-            for (attempt in 1..10) {
-                if (!isRunning) break
-                try {
-                    socket = Socket(ip, port)
-                    outputStream = socket?.getOutputStream()
-                    inputStream = socket?.getInputStream()
-                    connected = true
-                    break
-                } catch (e: Exception) {
-                    try { Thread.sleep(1000) } catch (ex: Exception) {}
+            try {
+                var connected = false
+                for (attempt in 1..10) {
+                    if (!isRunning) break
+                    try {
+                        socket = Socket(ip, port)
+                        outputStream = socket?.getOutputStream()
+                        inputStream = socket?.getInputStream()
+                        connected = true
+                        break
+                    } catch (e: Exception) {
+                        try { Thread.sleep(1000) } catch (ex: Exception) {}
+                    }
                 }
-            }
 
-            if (!connected) {
-                onStatusChg?.invoke("Disconnected")
-                return@thread
-            }
-            
-            onStatusChg?.invoke("Connected")
-            val stream = inputStream ?: return@thread
+                if (!connected) {
+                    onStatusChg?.invoke("Disconnected")
+                    return@thread
+                }
+
+                onStatusChg?.invoke("Connected")
+                val stream = inputStream ?: return@thread
                 val headerBuffer = ByteArray(4)
-                
+
                 while (isRunning) {
                     // Read 4 header bytes
                     var readBytes = 0
@@ -55,11 +56,11 @@ class TcpMeshClient(private val ip: String, private val port: Int) : MeshConnect
                         if (r == -1) throw java.io.EOFException("Socket closed")
                         readBytes += r
                     }
-                    
+
                     if (headerBuffer[0] != 0x94.toByte() || headerBuffer[1] != 0xC3.toByte()) {
                         continue // Ignore invalid magic bytes
                     }
-                    
+
                     val size = ByteBuffer.wrap(headerBuffer, 2, 2).order(ByteOrder.BIG_ENDIAN).short.toInt() and 0xFFFF
                     val payload = ByteArray(size)
                     var payloadReadBytes = 0
@@ -68,7 +69,7 @@ class TcpMeshClient(private val ip: String, private val port: Int) : MeshConnect
                         if (r == -1) throw java.io.EOFException("Socket closed during payload read")
                         payloadReadBytes += r
                     }
-                    
+
                     onMsgReceived?.invoke(payload)
                 }
             } catch (e: Exception) {
@@ -90,7 +91,7 @@ class TcpMeshClient(private val ip: String, private val port: Int) : MeshConnect
                     put(0xC3.toByte())
                     putShort(data.size.toShort())
                 }.array()
-                
+
                 synchronized(out) {
                     out.write(header)
                     out.write(data)
