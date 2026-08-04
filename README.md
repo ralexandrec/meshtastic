@@ -10,9 +10,9 @@ An offline-first, walkie-talkie-style communication client for Wear OS smartwatc
 
 ## Architecture Overview
 
-The application is built using modern Android development practices, emphasizing a clean separation of concerns and circular-optimized user interface elements:
+The application is built using modern Android development practices, emphasizing a clean separation of concerns and round-optimized user interface elements:
 
-- **UI Layer (Jetpack Compose for Wear OS):** Otimized for circular screens (e.g., Samsung Galaxy Watch) to avoid edge text clipping. It features a Double Scroll mechanism allowing simultaneous vertical navigation of the main screen and independent scrolling of message history.
+- **UI Layer (Jetpack Compose for Wear OS):** Optimized for round screens (e.g., Samsung Galaxy Watch) to avoid edge text clipping. It features a Double Scroll mechanism allowing simultaneous vertical navigation of the main screen and independent scrolling of message history.
 - **ViewModel (PttViewModel):** Manages local state, connection statuses, audio recording triggers, and message persistence. Following the Single Responsibility Principle, message formatting and GPS packet parsing are encapsulated in the ViewModel using structured `UiMessage` models.
 - **Model Layer:** Handles background speech operations:
   - **Speech-to-Text (STT):** Local, offline transcription by interfacing with the open-source **Sayboard** keyboard via native `SpeechRecognizer` API.
